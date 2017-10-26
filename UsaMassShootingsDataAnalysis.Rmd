@@ -1,0 +1,97 @@
+---
+title: "US Mass Shootings Data Analysis"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+## 1. Loading The Dataset
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(scales)
+library(tidyr)
+setwd("E:/MOOC")
+shootings <- read.csv("MassShootingsDataset.csv",stringsAsFactors=FALSE)
+```
+
+## 2. Dimensions Of The Dataset
+```{r}
+dim(shootings)
+```
+
+## 3. Description of the variables and thier types.
+```{r}
+str(shootings)
+```
+
+## 4. Overall Metrics
+```{r}
+total_casualties <- sum(shootings$Fatalities)
+total_injured <- sum(shootings$Injured)
+total_victims <- sum(shootings$Total.victims)
+
+sprintf("Total Number Of Casualties Reported Till Date: %s",total_casualties)
+sprintf("Total Number Of Injured Reported Till Date: %s",total_injured)
+sprintf("Total Number Of Victims Reported Till Date: %s",total_victims)
+```
+
+## 5. Top 10 Mass Shootings
+```{r}
+shootings$Date <- as.Date(shootings$Date,"%m/%d/%Y")
+shootings$Year <- format(shootings$Date,"%Y")
+newData <- head(shootings[order(-shootings$Total.victims),],10)
+row.names(newData) <- NULL
+print(subset(newData, select = c(Title,Location,Total.victims,Year)),row.names = FALSE)
+```
+
+## 6. Timeline Analysis
+
+```{r fig.width = 11, fig.height = 5}
+
+ggplot(shootings,aes(x=Year))+
+  geom_bar(fill="#A52A2A")+
+  geom_text(stat='count',aes(label=..count..),vjust=-1)+
+  scale_y_continuous(breaks = seq(0,80,10),limits = c(0,80))+
+  labs(x="Year",y="Number Of Attacks",title="Number Of Attacks Per Year")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+ * The above timeline analysis shows that highest number of attacks were carried out in the year 2015 and 2016, Now lets compare total.victims over a year timeline to see whether year 2015 and 2016 report high casualties too. 
+```{r fig.width = 10, fig.height = 5}
+ggplot(shootings,aes(x=Year,group=1))+
+  geom_line(stat="summary",fun.y = sum,aes(y=Total.victims),color= "red")+
+  geom_point(stat="summary",fun.y = sum,aes(y=Total.victims))+
+  scale_y_continuous(breaks = seq(0,700,50))+
+  labs(x="Year",y="Number Of Victims",title="Timeline Comparison of Victims Per Year")+
+  theme_bw()+
+  theme(axis.text.x = element_text(hjust = 1,angle = 60))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
+ * As expected, very high number of victims were reported in year 2015 and 2016, but 2017 inspite of having very less attacks number of attacks, reported the highest number of victims because of "Las Vegas Strip mass shooting" in which around 526 people were injured and 58 people were killed. Now lets compare the total casualties over a year timeline.
+ 
+```{r fig.width = 10, fig.height = 5}
+ggplot(shootings,aes(x=Year,group=1))+
+  geom_line(stat="summary",fun.y=sum,aes(y=Fatalities),color="red",size=0.5)+
+  geom_point(stat="summary",fun.y=sum,aes(y=Fatalities))+
+  labs(x="Year",y="Number Of Casualties Reported",title="Timeline Comparison Of Casualties Per Year")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))+
+  theme(plot.title = element_text(size = 14,hjust = 0.5))
+```
+
+```{r fig.width = 10, fig.height = 5}
+ggplot(shootings,aes(x=Year,group=1))+
+  geom_line(stat="summary",fun.y=sum,aes(y=Injured),color="red",size=0.5)+
+  geom_point(stat="summary",fun.y=sum,aes(y=Injured))+
+  labs(x="Year",y="Number Of Injured Reported",title="Timeline Comparison Of Injured Per Year")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))+
+  theme(plot.title = element_text(size = 14,hjust = 0.5))
+```
+
+
+
+
+
