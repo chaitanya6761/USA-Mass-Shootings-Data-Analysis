@@ -10,6 +10,7 @@ output:
 library(ggplot2)
 library(scales)
 library(tidyr)
+library(formattable)
 setwd("E:/MOOC")
 shootings <- read.csv("MassShootingsDataset.csv",stringsAsFactors=FALSE)
 ```
@@ -41,7 +42,7 @@ shootings$Date <- as.Date(shootings$Date,"%m/%d/%Y")
 shootings$Year <- format(shootings$Date,"%Y")
 newData <- head(shootings[order(-shootings$Total.victims),],10)
 row.names(newData) <- NULL
-print(subset(newData, select = c(Title,Location,Total.victims,Year)),row.names = FALSE)
+formattable(subset(newData, select = c(Title,Location,Total.victims,Year)),row.names = FALSE)
 ```
 
 ## 6. Timeline Analysis
@@ -128,3 +129,23 @@ ggplot(shootings,aes(x=Mental.Health.Issues))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
 
+## 8. Gender Based Exploration.
+```{r}
+table(shootings$Gender)
+```
+ * The Gender data seems to contain few duplicates, Lets elminate these duplicates, so that data represents consistent values.
+```{r}
+shootings$Gender <- ifelse(shootings$Gender == "M","Male",ifelse(shootings$Gender == "M/F","Male/Female",shootings$Gender))
+table(shootings$Gender)
+```
+```{r}
+ggplot(shootings,aes(x=Gender))+
+  geom_bar(width = 0.2,fill="#A52A2A")+
+  geom_text(stat='count',aes(label=..count..),hjust=-0.7)+
+  scale_y_continuous(limits = c(0,310),breaks = seq(0,310,40))+
+  labs(x="Gender Type",y="No Of People",title = "Gender Based Comparison")+
+  coord_flip()+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+ * The Gender based exploration shows that most of the attacks were carried out by males. 
