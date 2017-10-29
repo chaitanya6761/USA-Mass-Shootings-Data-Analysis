@@ -10,6 +10,7 @@ output:
 library(ggplot2)
 library(scales)
 library(tidyr)
+library(dplyr)
 library(formattable)
 setwd("E:/MOOC")
 shootings <- read.csv("MassShootingsDataset.csv",stringsAsFactors=FALSE)
@@ -103,7 +104,7 @@ ggplot(long_data,aes(x=Year))+
   scale_y_continuous(breaks = seq(0,650,50),limits = c(0,650))+
   labs(x="Year",y="Number Of Attacks",title="Timeline Comparison Of Victims Per Year")+
   theme_bw()+
-  scale_fill_manual(values = c("red","blue"))+
+  #scale_fill_manual(values = c("red","blue"))+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
@@ -149,3 +150,45 @@ ggplot(shootings,aes(x=Gender))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
  * The Gender based exploration shows that most of the attacks were carried out by males. 
+ 
+## 9. Province Based Exploration  
+```{r}
+shootings$Province <- ""
+value <- ","
+for(i in 1:nrow(shootings)){
+ shootings[i,15] <-ifelse(shootings[i,3] != "",strsplit(shootings[i,3],",")[[1]][2],"")  
+}
+
+```
+
+```{r fig.width = 8, fig.height = 10}
+shootings$Province <- ordered(shootings$Province,levels = names(sort(table(shootings$Province))))
+ggplot(subset(shootings,Province != ""),aes(Province))+
+  geom_bar(width = 0.4,fill="#A52A2A")+
+  geom_text(stat='count',aes(label=..count..),hjust=-0.7)+
+  scale_y_continuous(limits = c(0,30),breaks = seq(0,30,10))+
+  labs(x="Province",y="Number Of Shootings",title = "Province Based Comparison")+
+  coord_flip()+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
+```{r fig.width = 8, fig.height = 10}
+victims_by_province <- subset(shootings,Province != "") %>% 
+  group_by(Province) %>%
+  summarise(total=sum(Total.victims),n = n())%>%
+  arrange(desc(total))
+
+ggplot(victims_by_province,aes(x=reorder(Province,total),y=total))+
+  geom_bar(stat="identity",width = 0.4,fill="#A52A2A")+
+  geom_text(aes(label=total,hjust=-0.4))+
+  labs(x="Province",y="Number Of Victims",title = "Province Based Comparison Of Victims")+
+  scale_y_continuous(limits = c(0,600))+
+  coord_flip()+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
+
+
+
