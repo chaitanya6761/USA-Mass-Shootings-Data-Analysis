@@ -144,11 +144,12 @@ ggplot(shootings,aes(x=Gender))+
   geom_bar(width = 0.2,fill="#A52A2A")+
   geom_text(stat='count',aes(label=..count..),hjust=-0.7)+
   scale_y_continuous(limits = c(0,310),breaks = seq(0,310,40))+
-  labs(x="Gender Type",y="No Of People",title = "Gender Based Comparison")+
+  labs(x="Gender Type",y="No Of Attacks Carried Out",title = "Gender Based Comparison Of Attacks")+
   coord_flip()+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
+ 
  * The Gender based exploration shows that most of the attacks were carried out by males. 
  
 ## 9. Province Based Exploration  
@@ -167,11 +168,13 @@ ggplot(subset(shootings,Province != ""),aes(Province))+
   geom_bar(width = 0.4,fill="#A52A2A")+
   geom_text(stat='count',aes(label=..count..),hjust=-0.7)+
   scale_y_continuous(limits = c(0,30),breaks = seq(0,30,10))+
-  labs(x="Province",y="Number Of Shootings",title = "Province Based Comparison")+
+  labs(x="Province",y="Number Of Shootings",title = "Province Based Comparison Of Shootings")+
   coord_flip()+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
+
+  * The Provice based comparison shows that most number of attacks were carried out in calfornia state. Now lets compare the provinces based number of victims. 
 
 ```{r fig.width = 8, fig.height = 10}
 victims_by_province <- subset(shootings,Province != "") %>% 
@@ -189,6 +192,38 @@ ggplot(victims_by_province,aes(x=reorder(Province,total),y=total))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
 
+ * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack in USA's history.    
+ 
+## 10. Race Based Exploration
+```{r}
+table(shootings$Race)
+```
+ 
+ * The Race data column seems to have some duplicate values.Lets eliminate these duplicate values, so that column represents consistent values.
+ 
+```{r}
+shootings$Race <- ifelse(shootings$Race == "white","White",ifelse(shootings$Race == "black","Black",ifelse(shootings$Race == "" | shootings$Race == "Some other race" | shootings$Race == "Unknown", "Other",shootings$Race)))
 
+table(shootings$Race)
+```
+
+
+```{r fig.width = 10, fig.height = 5}
+ggplot(shootings,aes(x=Race))+
+  geom_bar(fill="#A52A2A",width = 0.5)+
+  labs(x="Race",y="Number Of Attacks Carried Out",title = "Race Based Comparison Of Attacks")+
+  theme_bw()+
+  coord_flip()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
+```{r fig.width = 10, fig.height = 5}
+ggplot(shootings,aes(x=Race,y=Total.victims))+
+  geom_bar(stat="summary",fun.y=sum,fill="#A52A2A",width=0.5)+
+  labs(x="Race",y="Number Of Victims",title = "Race Based Comparison Of victims")+
+  theme_bw()+
+  coord_flip()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
 
 
