@@ -150,8 +150,16 @@ ggplot(shootings,aes(x=Gender))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
  
- * The Gender based exploration shows that most of the attacks were carried out by males. 
- 
+ * The Gender based exploration shows that most of the attacks were carried out by males. Now lets compare no of fatalties caused by gender.
+```{r}
+ggplot(shootings,aes(x=Gender,y=Total.victims))+
+  geom_bar(stat="summary",fun.y=sum,fill="#A52A2A",width=0.2)+
+  labs(x="Gender",y="Number Of Victims",title = "Comparison Of victims By Attacker's Gender Type")+
+  theme_bw()+
+  coord_flip()+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
 ## 9. Province Based Exploration  
 ```{r}
 shootings$Province <- ""
@@ -159,7 +167,6 @@ value <- ","
 for(i in 1:nrow(shootings)){
  shootings[i,15] <-ifelse(shootings[i,3] != "",strsplit(shootings[i,3],",")[[1]][2],"")  
 }
-
 ```
 
 ```{r fig.width = 8, fig.height = 10}
@@ -192,7 +199,7 @@ ggplot(victims_by_province,aes(x=reorder(Province,total),y=total))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
 
- * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack in USA's history.    
+ * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack in USA's history. If we exclude that attack then most number of victims and attacks were reported by the state of California.     
  
 ## 10. Race Based Exploration
 ```{r}
@@ -220,10 +227,27 @@ ggplot(shootings,aes(x=Race))+
 ```{r fig.width = 10, fig.height = 5}
 ggplot(shootings,aes(x=Race,y=Total.victims))+
   geom_bar(stat="summary",fun.y=sum,fill="#A52A2A",width=0.5)+
-  labs(x="Race",y="Number Of Victims",title = "Race Based Comparison Of victims")+
+  labs(x="Race",y="Number Of Victims",title = "Comparison Of victims Based On Attacker's Race Type")+
   theme_bw()+
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
 
+## 11. Gender Based Analysis Of Shootings Over Year Timeline
+```{r fig.width = 12, fig.height = 5}
+ggplot(shootings,aes(x=Year))+
+  geom_bar(aes(fill=Gender))+
+  geom_text(stat='count',aes(label=..count..),vjust=-1)+
+  scale_y_continuous(breaks = seq(0,80,10),limits = c(0,80))+
+  labs(x="Year",y="Number Of Attacks",title="Gender Based Analysis Of Shootings Over Year Timeline")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
 
+ * The Gender based analysis of shootings shows that most of the attacks were carried out by the males every year.
+ 
+ 
+ 
+ 
+ 
