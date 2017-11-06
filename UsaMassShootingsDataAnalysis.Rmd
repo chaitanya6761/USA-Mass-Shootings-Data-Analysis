@@ -261,5 +261,28 @@ ggplot(shootings,aes(x=Year))+
  
  * The above timeline based analysis shows that every year there were attacks due to (Mental Health Issues). After the year 2014 USA witnessed high number of shootings, but (mental state) data of attackers is not available, So we cannot exactly conclude why there is a rise in number of victims reported.  
  
- 
- 
+## 13. Race Based Analysis Of Shootings Over Year Timeline
+```{r fig.width = 14, fig.height = 5}
+ggplot(shootings,aes(x=Year))+
+  geom_bar(aes(fill=Race))+
+  geom_text(stat='count',aes(label=..count..),vjust=-1)+
+  scale_y_continuous(breaks = seq(0,75,10),limits = c(0,75))+
+  labs(x="Year",y="Number Of Attacks",title="Race Based Analysis Of Shootings Over Year Timeline")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+```
+
+ * The above timeline shows that most of the attacks were carried out by the people of "White American/European Race". After the year 2014, we see a increase in number of attacks by the people of race "Black American" and "Native American" too.     
+
+
+
+
+
+
+
+
+
+
+
+
