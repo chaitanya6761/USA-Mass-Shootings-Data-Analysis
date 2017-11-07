@@ -125,10 +125,23 @@ ggplot(shootings,aes(x=Mental.Health.Issues))+
   geom_bar(width = 0.1,fill="#A52A2A")+
   geom_text(stat='count',aes(label=..count..),vjust=-1)+
   scale_y_continuous(limits = c(0,130),breaks = seq(0,130,20))+
-  labs(x="Has Mental Health Issues",y="No Of People",title = "Mental Health Issues Comparison")+
+  labs(x="Has Mental Health Issues",y="No Of Attacks",title = "Mental Health Issues Comparison")+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
+
+```{r}
+ggplot(shootings,aes(x=Mental.Health.Issues,y=Total.victims))+
+  geom_bar(stat="summary",fun.y=sum,width = 0.1,fill="#A52A2A")+
+  stat_summary(aes(label=..y..), fun.y=sum, geom="text",vjust = -0.5)+
+  labs(x="Has Mental Health Issues",y="Number Of Victims",title="Comparison Of Victims By Attacker's Mental Health")+
+  scale_y_continuous(limits = c(0,1500),breaks = seq(0,1500,300))+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+
 
 ## 8. Gender Based Exploration.
 ```{r}
@@ -154,7 +167,9 @@ ggplot(shootings,aes(x=Gender))+
 ```{r}
 ggplot(shootings,aes(x=Gender,y=Total.victims))+
   geom_bar(stat="summary",fun.y=sum,fill="#A52A2A",width=0.2)+
+  stat_summary(aes(label=..y..), fun.y=sum, geom="text",hjust = -0.5)+
   labs(x="Gender",y="Number Of Victims",title = "Comparison Of victims By Attacker's Gender Type")+
+  scale_y_continuous(limits = c(0,3300),breaks = seq(0,3300,500))+
   theme_bw()+
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
@@ -218,7 +233,9 @@ table(shootings$Race)
 ```{r fig.width = 10, fig.height = 5}
 ggplot(shootings,aes(x=Race))+
   geom_bar(fill="#A52A2A",width = 0.5)+
+  geom_text(stat = "count",aes(label=..count..),hjust = -0.5)+
   labs(x="Race",y="Number Of Attacks Carried Out",title = "Race Based Comparison Of Attacks")+
+  scale_y_continuous(limits=c(0,130),breaks = seq(0,130,30))+
   theme_bw()+
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
@@ -227,7 +244,9 @@ ggplot(shootings,aes(x=Race))+
 ```{r fig.width = 10, fig.height = 5}
 ggplot(shootings,aes(x=Race,y=Total.victims))+
   geom_bar(stat="summary",fun.y=sum,fill="#A52A2A",width=0.5)+
+  stat_summary(aes(label=..y..), fun.y=sum, geom="text",hjust = -0.5)+
   labs(x="Race",y="Number Of Victims",title = "Comparison Of victims Based On Attacker's Race Type")+
+  scale_y_continuous(limits = c(0,1200),breaks = seq(0,1200,300))+
   theme_bw()+
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
@@ -274,15 +293,3 @@ ggplot(shootings,aes(x=Year))+
 ```
 
  * The above timeline shows that most of the attacks were carried out by the people of "White American/European Race". After the year 2014, we see a increase in number of attacks by the people of race "Black American" and "Native American" too.     
-
-
-
-
-
-
-
-
-
-
-
-
