@@ -101,6 +101,7 @@ long_data <- gather(subset(shootings,select = c(Year,Fatalities,Injured)),Victim
 
 ggplot(long_data,aes(x=Year))+
   geom_bar(stat = "summary",fun.y=sum,aes(y=NoOfVictims,fill=VictimType),width = 0.6)+
+  stat_summary(geom="text",fun.y=sum,aes(label=..y..,y=NoOfVictims),vjust = -0.5)+
   scale_y_continuous(breaks = seq(0,650,50),limits = c(0,650))+
   labs(x="Year",y="Number Of Attacks",title="Timeline Comparison Of Victims Per Year")+
   theme_bw()+
@@ -216,6 +217,25 @@ ggplot(victims_by_province,aes(x=reorder(Province,total),y=total))+
 
  * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack in USA's history. If we exclude that attack then most number of victims and attacks were reported by the state of California.     
  
+ 
+```{r fig.width = 12, fig.height = 12}
+long_data_province <- gather(subset(shootings,select = c(Province,Fatalities,Injured)),VictimType,NoOfVictims,Fatalities,Injured) %>% 
+  group_by(Province,VictimType) %>%
+  summarize(total = sum(NoOfVictims))
+
+#long_data_province
+
+ggplot(subset(long_data_province,Province != ""),aes(x=reorder(Province,total),y=total))+
+  geom_bar(stat = "summary",fun.y=sum,aes(y=total,fill=VictimType),width = 0.7)+
+  stat_summary(geom ="text",aes(label=..y..),fun.y=sum,hjust = -0.5)+
+  scale_y_continuous(breaks = seq(0,600,50),limits = c(0,600))+
+  labs(x="Province",y="Number Of Victims",title="Comparison Of Victim Type By Province")+
+  theme_bw()+
+  coord_flip()+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14))
+``` 
+ 
 ## 10. Race Based Exploration
 ```{r}
 table(shootings$Race)
@@ -253,7 +273,7 @@ ggplot(shootings,aes(x=Race,y=Total.victims))+
 ```
 
 ## 11. Gender Based Analysis Of Shootings Over Year Timeline
-```{r fig.width = 12, fig.height = 5}
+```{r fig.width = 14, fig.height = 8}
 ggplot(shootings,aes(x=Year))+
   geom_bar(aes(fill=Gender))+
   geom_text(stat='count',aes(label=..count..),vjust=-1)+
@@ -267,7 +287,7 @@ ggplot(shootings,aes(x=Year))+
  * The Gender based analysis of shootings shows that most of the attacks were carried out by the males every year.
  
 ## 12. (Mental Health) Based Analysis Of Shootings Over Year Timeline
-```{r fig.width = 12, fig.height = 5}
+```{r fig.width = 14, fig.height = 8}
 ggplot(shootings,aes(x=Year))+
   geom_bar(aes(fill=Mental.Health.Issues))+
   geom_text(stat='count',aes(label=..count..),vjust=-1)+
@@ -281,7 +301,7 @@ ggplot(shootings,aes(x=Year))+
  * The above timeline based analysis shows that every year there were attacks due to (Mental Health Issues). After the year 2014 USA witnessed high number of shootings, but (mental state) data of attackers is not available, So we cannot exactly conclude why there is a rise in number of victims reported.  
  
 ## 13. Race Based Analysis Of Shootings Over Year Timeline
-```{r fig.width = 14, fig.height = 5}
+```{r fig.width = 14, fig.height = 8}
 ggplot(shootings,aes(x=Year))+
   geom_bar(aes(fill=Race))+
   geom_text(stat='count',aes(label=..count..),vjust=-1)+
@@ -292,4 +312,4 @@ ggplot(shootings,aes(x=Year))+
   theme(plot.title = element_text(hjust = 0.5,size = 14))
 ```
 
- * The above timeline shows that most of the attacks were carried out by the people of "White American/European Race". After the year 2014, we see a increase in number of attacks by the people of race "Black American" and "Native American" too.     
+ * The above timeline shows that most of the attacks were carried out by the people of "White American/European Race". After the year 2014, we see a increase in number of attacks by the people of race "Black American" and "Native American" too. 
