@@ -4,7 +4,8 @@ output:
   html_document: default
   html_notebook: default
 ---
-
+This tiny dataset which has around 300 rows contains information about Mass shootings carried out in united states. This dataset is obtained from the website Kaggle. 
+ 
 ## 1. Loading The Dataset
 ```{r message=FALSE, warning=FALSE}
 library(ggplot2)
