@@ -25,3 +25,22 @@ This tiny dataset which has around 300 rows contains information about Mass shoo
 
 ![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-5.png)
 
+---
+
+![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-6.png)
+
+---
+
+![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-7.png)
+
+---
+
+![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-8.png)
+
+---
+
+![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-9.png)
+
+---
+
+![](https://raw.githubusercontent.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/master/outputs/fig-10.png)
