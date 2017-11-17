@@ -58,7 +58,8 @@ ggplot(shootings,aes(x=Year))+
   labs(x="Year",y="Number Of Attacks",title="Number Of Attacks Per Year")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-1.png",width = 11,height = 5)  
 ```
  * The above timeline analysis shows that highest number of attacks were carried out in the year 2015 and 2016, Now lets compare total.victims over a year timeline to see whether year 2015 and 2016 report high casualties too. 
 ```{r fig.width = 10, fig.height = 5}
@@ -69,7 +70,9 @@ ggplot(shootings,aes(x=Year,group=1))+
   labs(x="Year",y="Number Of Victims",title="Timeline Comparison of Victims Per Year")+
   theme_bw()+
   theme(axis.text.x = element_text(hjust = 1,angle = 60))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-2.png",width = 10,height = 5)
+
 ```
 
  * As expected, very high number of victims were reported in year 2015 and 2016, but 2017 inspite of having very less attacks number of attacks, reported the highest number of victims because of "Las Vegas Strip mass shooting" in which around 526 people were injured and 58 people were killed. Now lets compare the total casualties over a year timeline.
@@ -82,7 +85,8 @@ ggplot(shootings,aes(x=Year,group=1))+
   scale_y_continuous(breaks = seq(0,350,50),limits = c(0,250))+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60,hjust = 1))+
-  theme(plot.title = element_text(size = 14,hjust = 0.5))
+  theme(plot.title = element_text(size = 14,hjust = 0.5))+
+  ggsave(filename = "outputs/fig-3.png",width = 10,height = 5)
 ```
 
 ```{r fig.width = 10, fig.height = 5}
@@ -93,7 +97,8 @@ ggplot(shootings,aes(x=Year,group=1))+
   scale_y_continuous(breaks = seq(0,550,50),limits = c(0,550))+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60,hjust = 1))+
-  theme(plot.title = element_text(size = 14,hjust = 0.5))
+  theme(plot.title = element_text(size = 14,hjust = 0.5))+
+  ggsave(filename = "outputs/fig-4.png",width = 10,height = 5)
 ```
 
 Lets combine the above metrics into a single graph which represents both the Fatalties and injured per year.
@@ -108,7 +113,8 @@ ggplot(long_data,aes(x=Year))+
   theme_bw()+
   #scale_fill_manual(values = c("red","blue"))+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-5.png",width = 12,height = 5)
 ```
 
 ## 7. Mental Health Issues Exploration.
@@ -129,7 +135,8 @@ ggplot(shootings,aes(x=Mental.Health.Issues))+
   scale_y_continuous(limits = c(0,130),breaks = seq(0,130,20))+
   labs(x="Has Mental Health Issues",y="No Of Attacks",title = "Mental Health Issues Comparison")+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-6.png",width = 5,height = 5)
 ```
 
 ```{r}
@@ -139,7 +146,8 @@ ggplot(shootings,aes(x=Mental.Health.Issues,y=Total.victims))+
   labs(x="Has Mental Health Issues",y="Number Of Victims",title="Comparison Of Victims By Attacker's Mental Health")+
   scale_y_continuous(limits = c(0,1500),breaks = seq(0,1500,300))+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5))+
+  ggsave(filename = "outputs/fig-7.png",width = 5,height = 5)
 ```
 
 
@@ -162,7 +170,8 @@ ggplot(shootings,aes(x=Gender))+
   labs(x="Gender Type",y="No Of Attacks Carried Out",title = "Gender Based Comparison Of Attacks")+
   coord_flip()+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-8.png",width = 7,height = 5)
 ```
  
  * The Gender based exploration shows that most of the attacks were carried out by males. Now lets compare no of fatalties caused by gender.
@@ -174,7 +183,8 @@ ggplot(shootings,aes(x=Gender,y=Total.victims))+
   scale_y_continuous(limits = c(0,3300),breaks = seq(0,3300,500))+
   theme_bw()+
   coord_flip()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-9.png",width = 6,height = 5)
 ```
 
 ## 9. Province Based Exploration  
@@ -195,7 +205,8 @@ ggplot(subset(shootings,Province != ""),aes(Province))+
   labs(x="Province",y="Number Of Shootings",title = "Province Based Comparison Of Shootings")+
   coord_flip()+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-10.png",width = 8,height = 10)
 ```
 
   * The Provice based comparison shows that most number of attacks were carried out in calfornia state. Now lets compare the provinces based number of victims. 
@@ -213,10 +224,11 @@ ggplot(victims_by_province,aes(x=reorder(Province,total),y=total))+
   scale_y_continuous(limits = c(0,600))+
   coord_flip()+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-11.png",width = 8,height = 10)
 ```
 
- * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack in USA's history. If we exclude that attack then most number of victims and attacks were reported by the state of California.     
+ * The provine based comparison of victims show that most effected state is Naveda. Naveda reported high number of victims because it recenctly witnesed a mass shooting which was one of the most horrible attack's in USA's history. If we exclude that attack then most number of victims and attacks were reported by the state of California.     
  
  
 ```{r fig.width = 12, fig.height = 12}
@@ -234,7 +246,8 @@ ggplot(subset(long_data_province,Province != ""),aes(x=reorder(Province,total),y
   theme_bw()+
   coord_flip()+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-12.png",width = 12,height = 12)
 ``` 
  
 ## 10. Race Based Exploration
@@ -259,7 +272,9 @@ ggplot(shootings,aes(x=Race))+
   scale_y_continuous(limits=c(0,130),breaks = seq(0,130,30))+
   theme_bw()+
   coord_flip()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-13.png",width = 8,height = 5)
+
 ```
 
 ```{r fig.width = 10, fig.height = 5}
@@ -270,7 +285,8 @@ ggplot(shootings,aes(x=Race,y=Total.victims))+
   scale_y_continuous(limits = c(0,1200),breaks = seq(0,1200,300))+
   theme_bw()+
   coord_flip()+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-14.png",width = 9,height = 5)
 ```
 
 ## 11. Gender Based Analysis Of Shootings Over Year Timeline
@@ -282,7 +298,8 @@ ggplot(shootings,aes(x=Year))+
   labs(x="Year",y="Number Of Attacks",title="Gender Based Analysis Of Shootings Over Year Timeline")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-15.png",width = 14,height = 5)
 ```
 
  * The Gender based analysis of shootings shows that most of the attacks were carried out by the males every year.
@@ -296,7 +313,8 @@ ggplot(shootings,aes(x=Year))+
   labs(x="Year",y="Number Of Attacks",title="(Mental Health) Based Analysis Of Shootings Over Year Timeline")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-16.png",width = 14,height = 5)
 ``` 
  
  * The above timeline based analysis shows that every year there were attacks due to (Mental Health Issues). After the year 2014 USA witnessed high number of shootings, but (mental state) data of attackers is not available, So we cannot exactly conclude why there is a rise in number of victims reported.  
@@ -310,7 +328,8 @@ ggplot(shootings,aes(x=Year))+
   labs(x="Year",y="Number Of Attacks",title="Race Based Analysis Of Shootings Over Year Timeline")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14))
+  theme(plot.title = element_text(hjust = 0.5,size = 14))+
+  ggsave(filename = "outputs/fig-17.png",width = 14,height = 5)
 ```
 
  * The above timeline shows that most of the attacks were carried out by the people of "White American/European Race". After the year 2014, we see a increase in number of attacks by the people of race "Black American" and "Native American" too. 
