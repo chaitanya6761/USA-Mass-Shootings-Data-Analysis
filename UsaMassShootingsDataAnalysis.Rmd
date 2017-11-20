@@ -136,7 +136,7 @@ ggplot(shootings,aes(x=Mental.Health.Issues))+
   labs(x="Has Mental Health Issues",y="No Of Attacks",title = "Mental Health Issues Comparison")+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5,size = 14))+
-  ggsave(filename = "outputs/fig-6.png",width = 5,height = 5)
+  ggsave(filename = "outputs/fig-6.png",width = 4,height = 4)
 ```
 
 ```{r}
@@ -147,7 +147,7 @@ ggplot(shootings,aes(x=Mental.Health.Issues,y=Total.victims))+
   scale_y_continuous(limits = c(0,1500),breaks = seq(0,1500,300))+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5))+
-  ggsave(filename = "outputs/fig-7.png",width = 5,height = 5)
+  ggsave(filename = "outputs/fig-7.png",width = 5,height = 3)
 ```
 
 
