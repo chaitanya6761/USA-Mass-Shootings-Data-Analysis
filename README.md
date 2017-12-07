@@ -2,7 +2,8 @@
 
 This tiny dataset which has around 300 rows contains information about Mass shootings carried out in united states. This dataset is obtained from the website Kaggle. 
 
-### ![View Report](http://htmlpreview.github.io/?https://github.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/blob/master/UsaMassShootingsDataAnalysis.html)
+### [View Report](https://htmlpreview.github.io/?https://github.com/chaitanya6761/USA-Mass-Shootings-Data-Analysis/blob/master/UsaMassShootingsDataAnalysis.html).
+
 ***
 
 ## Plots :
